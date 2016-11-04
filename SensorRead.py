@@ -1,33 +1,32 @@
 # Import the ADS1x15 module.
 import Adafruit_ADS1x15
 import smbus
+import time
 
 #############################vegT sensor method#############################################
 adc = Adafruit_ADS1x15.ADS1015()
 GAIN = 1
 
-print('Reading ADS1x15 values, press Ctrl-C to quit...')
-# Print nice channel column headers.
-print('| vegTro1 | Lights | waterLev | vegTro2 |'.format(*range(4)))
-print('-' * 37)
 
 
 
+def readVegOne():
+    # Read the specified ADC channel using the previously set gain value.
+    vegOneReading = adc.read_adc(1, gain=GAIN)
+    return vegOneReading
+
+def readVegTwo():
+    # Read the specified ADC channel using the previously set gain value.
+    vegTwoReading = adc.read_adc(2, gain=GAIN)
+    return vegTwoReading
+
+def readWaterLev():
+    # Read the specified ADC channel using the previously set gain value.
+    waterLevReading = adc.read_adc(3, gain=GAIN)
+    return waterLevReading
 
 
-# Main loop.
-while True:
-    
-    # Read all the ADC channel values in a list.
-    values = [0]*4
-    for i in range(4):
-        # Read the specified ADC channel using the previously set gain value.
-        values[i] = adc.read_adc(i, gain=GAIN)
-        if(values[0] >800):
-            print('the value is ')
-        print('| {0:>6} | {1:>6} | {2:>6} | {3:>6} |'.format(*values))
-    # Pause for half a second.
-    time.sleep(0.5)
+
 #############################vegT sensor method#############################################
 
 
@@ -69,7 +68,7 @@ def convertToNumber(data):
 
 def readLight(addr=DEVICE):
     data = bus.read_i2c_block_data(addr,ONE_TIME_HIGH_RES_MODE_1)
-        return convertToNumber(data)
+    return convertToNumber(data)
 
-# do this in while loop #print "Light Level : " + str(readLight())
+# do this in whileloop #print "Light Level : " + str(readLight())
 #############################Light sensor method#############################################
