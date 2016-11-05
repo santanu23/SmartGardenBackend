@@ -7,8 +7,17 @@ import time
 adc = Adafruit_ADS1x15.ADS1015()
 GAIN = 1
 
+##############################################################
+print('Reading ADS1x15 values, press Ctrl-C to quit...')
+# Print nice channel column headers.
+print('| vegTro1 | Lights | waterLev | vegTro2 |'.format(*range(4)))
+print('-' * 37)
 
 
+##############################################################
+
+
+###############################################################3
 
 def readVegOne():
     # Read the specified ADC channel using the previously set gain value.
@@ -17,22 +26,13 @@ def readVegOne():
 
 def readVegTwo():
     # Read the specified ADC channel using the previously set gain value.
-    vegTwoReading = adc.read_adc(2, gain=GAIN)
+    vegTwoReading = adc.read_adc(3, gain=GAIN)
     return vegTwoReading
 
 def readWaterLev():
     # Read the specified ADC channel using the previously set gain value.
-    waterLevReading = adc.read_adc(3, gain=GAIN)
+    waterLevReading = adc.read_adc(2, gain=GAIN)
     return waterLevReading
-
-
-
-#############################vegT sensor method#############################################
-
-
-
-
-
 
 #############################Light sensor method#############################################
 
@@ -70,5 +70,4 @@ def readLight(addr=DEVICE):
     data = bus.read_i2c_block_data(addr,ONE_TIME_HIGH_RES_MODE_1)
     return convertToNumber(data)
 
-# do this in whileloop #print "Light Level : " + str(readLight())
-#############################Light sensor method#############################################
+###############################
